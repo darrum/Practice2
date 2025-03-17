@@ -109,7 +109,7 @@ void showMenu() {
 int searchPatient(const Database& data, const string &nif) { //not finished
     int patientIndex = -1;
     bool found = false;
-    for (size_t i = 0; i < data.patients.size() || !found; i++) {
+    for (size_t i = 0; i < data.patients.size() && !found; i++) {
         if (nif == data.patients[i].nif) {
             found = true;
             patientIndex = i;
@@ -204,9 +204,9 @@ void viewPatient(const Database& data) {
         }
     }
 
-    cout << "NIF: " << data.patients[patientIndex].nif;
-    cout << "Name: " << data.patients[patientIndex].name;
-    cout << "Telephone: " << data.patients[patientIndex].telephone;
+    cout << "NIF: " << data.patients[patientIndex].nif << endl;
+    cout << "Name: " << data.patients[patientIndex].name << endl;
+    cout << "Telephone: " << data.patients[patientIndex].telephone << endl;
     cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;;//not finished
 
     for (size_t i = 0; i < data.analysis.size(); i++) {
@@ -272,14 +272,13 @@ void addAnalysis(Database& data) {
     bool patientExists = false, validDate, validWeight = false, validHeight = false;
 
     do {
-        int patientIndex;
         cout << "Enter NIF: " << endl;
         getline(cin, nif);
         if (nif.empty()) {
             return;
         }
 
-        patientIndex = searchPatient(data, nif);
+        int patientIndex = searchPatient(data, nif);
 
         if (patientIndex != -1) {
             patientExists = true;
@@ -339,15 +338,29 @@ void exportAnalysis(Database data) {
 void importAnalysis(Database& data) {
     ofstream fw("wrong_patients.txt", ios::app);
     ifstream fr("analysis.bin", ios::binary);
-    if (fr.is_open() && fw.is_open()) {
-        string line;
 
-        while (getline(fr,line)) {
-            cout << line << endl; //not finished
-        }
-    } else {
-       error(ERR_FILE);
+    if (!fr.is_open() || !fw.is_open()) {
+        error(ERR_FILE);
+        return;
     }
+
+    Analysis binAnalysis{};
+    while (fr.read((char *)&binAnalysis, sizeof(Analysis))) {
+        int patientIndex = searchPatient(data, binAnalysis.nif); //not finished
+
+        if (patientIndex == -1) { //not sure about format
+            fw << binAnalysis.id << ";"
+            << binAnalysis.nif << ";"
+            << binAnalysis.dateAnalysis.day << "/"
+            << binAnalysis.dateAnalysis.month << "/"
+            << binAnalysis.dateAnalysis.year << ";"
+            << binAnalysis.height << ";"
+            << binAnalysis.weight << endl;
+        } else {
+            data.analysis.push_back(binAnalysis);
+        }
+    }
+
 }
 
 string bmiCalculator(const float& weight, const float& height) {
@@ -365,8 +378,13 @@ void statistics(const Database& data) {
     for (size_t i = 0; i < data.analysis.size();i++) {
         string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
 
-        cout << data.analysis[i].nif << ";" << data.analysis[i].dateAnalysis.day << "/" << data.analysis[i].dateAnalysis.month << "/" << data.analysis[i].dateAnalysis.year << "/"
-        << ";" << data.analysis[i].weight << ";" << data.analysis[i].height << ";" << bmi << endl;
+        cout << data.analysis[i].nif << ";"
+        << data.analysis[i].dateAnalysis.day << "/"
+        << data.analysis[i].dateAnalysis.month << "/"
+        << data.analysis[i].dateAnalysis.year << ";"
+        << data.analysis[i].weight << ";"
+        << data.analysis[i].height << ";"
+        << bmi << endl;
     }
 }
 /*
