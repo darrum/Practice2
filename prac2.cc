@@ -325,11 +325,7 @@ void exportAnalysis(Database data) {
 
     if (file.is_open()) {
         for (size_t i = 0; i < data.analysis.size(); i++) {
-            // strcpy(binPatient.nif, data.patients[i].nif.c_str());
-            // strcpy(binPatient.name, data.patients[i].name.c_str());
-            // strcpy(binPatient.telephone, data.patients[i].telephone.c_str());
-            //
-            // file.write((const char *)&binPatient, sizeof(binPatient));
+            file.write((const char *)&data.analysis[i], sizeof(Analysis));
         }
     }
     file.close();
@@ -360,7 +356,6 @@ void importAnalysis(Database& data) {
             data.analysis.push_back(binAnalysis);
         }
     }
-
 }
 
 string bmiCalculator(const float& weight, const float& height) {
