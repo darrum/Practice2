@@ -109,7 +109,7 @@ void showMenu() {
 int searchPatient(const Database& data, const string &nif) { //not finished
     int patientIndex = -1;
     bool found = false;
-    for (int i = 0; i < data.patients.size() || !found; i++) {
+    for (size_t i = 0; i < data.patients.size() || !found; i++) {
         if (nif == data.patients[i].nif) {
             found = true;
             patientIndex = i;
@@ -207,7 +207,18 @@ void viewPatient(const Database& data) {
     cout << "NIF: " << data.patients[patientIndex].nif;
     cout << "Name: " << data.patients[patientIndex].name;
     cout << "Telephone: " << data.patients[patientIndex].telephone;
-    cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t"; //not finished
+    cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;;//not finished
+
+    for (size_t i = 0; i < data.analysis.size(); i++) {
+        if (data.analysis[i].nif == nif) {
+            cout << data.analysis[i].id << "\t"
+            << data.analysis[i].dateAnalysis.day << "/"
+            << data.analysis[i].dateAnalysis.month << "/"
+            << data.analysis[i].dateAnalysis.year << "\t"
+            << data.analysis[i].height << "\t"
+            << data.analysis[i].weight << endl;
+        }
+    }
 }
 
 void deletePatient(Database& data) {
@@ -230,7 +241,7 @@ void deletePatient(Database& data) {
     } while (!validNIF);
 
     data.patients.erase(data.patients.begin() + patientIndex);
-    for (int i = 0; i < data.analysis.size(); i++) {
+    for (size_t i = 0; i < data.analysis.size(); i++) {
         if (data.analysis[i].nif == nif) {
             data.analysis.erase(data.analysis.begin()+i);
             i--;
@@ -243,7 +254,7 @@ void savePatients(const Database& data) {
     ofstream file("patients.bin", ios::binary);
 
     if (file.is_open()) {
-        for (int i = 0; i < data.patients.size(); i++) {
+        for (size_t i = 0; i < data.patients.size(); i++) {
             strcpy(binPatient.nif, data.patients[i].nif.c_str());
             strcpy(binPatient.name, data.patients[i].name.c_str());
             strcpy(binPatient.telephone, data.patients[i].telephone.c_str());
@@ -314,7 +325,7 @@ void exportAnalysis(Database data) {
     ofstream file("analysis.bin", ios::binary);
 
     if (file.is_open()) {
-        for (int i = 0; i < data.analysis.size(); i++) {
+        for (size_t i = 0; i < data.analysis.size(); i++) {
             // strcpy(binPatient.nif, data.patients[i].nif.c_str());
             // strcpy(binPatient.name, data.patients[i].name.c_str());
             // strcpy(binPatient.telephone, data.patients[i].telephone.c_str());
@@ -351,7 +362,7 @@ string bmiCalculator(const float& weight, const float& height) {
 
 void statistics(const Database& data) {
     ofstream file("statistics.txt");
-    for (int i = 0; i < data.analysis.size();i++) {
+    for (size_t i = 0; i < data.analysis.size();i++) {
         string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
 
         cout << data.analysis[i].nif << ";" << data.analysis[i].dateAnalysis.day << "/" << data.analysis[i].dateAnalysis.month << "/" << data.analysis[i].dateAnalysis.year << "/"
