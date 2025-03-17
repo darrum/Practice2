@@ -106,7 +106,7 @@ void showMenu() {
          << "Option: ";
 }
 
-int searchPatient(const Database data, const string nif) { //not finished
+int searchPatient(const Database& data, const string &nif) { //not finished
     int patientIndex = -1;
     bool found = false;
     for (int i = 0; i < data.patients.size() || !found; i++) {
@@ -128,7 +128,7 @@ bool isValidDate(const std::string& date) {
     return std::regex_match(date, datePattern);
 }
 
-void addPatient(Database data) {
+void addPatient(Database& data) {
     Patient newPatient;
     string nif, name, telephone;
     bool legitName = false, legitPhone = false, legitNIF = false;
@@ -189,7 +189,7 @@ void addPatient(Database data) {
     data.patients.push_back(newPatient);
 }
 
-void viewPatient(Database data) {
+void viewPatient(const Database& data) {
     string nif;
     int patientIndex = -1;
     while (patientIndex == -1){
@@ -210,7 +210,7 @@ void viewPatient(Database data) {
     cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t"; //not finished
 }
 
-void deletePatient(Database data) {
+void deletePatient(Database& data) {
     string nif;
     bool validNIF = false;
     int patientIndex;
@@ -238,7 +238,7 @@ void deletePatient(Database data) {
     }
 }
 
-void savePatients(Database data) {
+void savePatients(const Database& data) {
     PatientBin binPatient{};
     ofstream file("patients.bin", ios::binary);
 
@@ -254,7 +254,7 @@ void savePatients(Database data) {
     file.close();
 }
 
-void addAnalysis(Database data) {
+void addAnalysis(Database& data) {
     Analysis newAnalysis{data.nextId++};
     string nif, date;
     float weight, height;
@@ -325,7 +325,7 @@ void exportAnalysis(Database data) {
     file.close();
 }
 
-void importAnalysis(Database data) {
+void importAnalysis(Database& data) {
     ofstream fw("wrong_patients.txt", ios::app);
     ifstream fr("analysis.bin", ios::binary);
     if (fr.is_open() && fw.is_open()) {
@@ -339,7 +339,7 @@ void importAnalysis(Database data) {
     }
 }
 
-string bmiCalculator(float weight, float height) {
+string bmiCalculator(const float& weight, const float& height) {
     float bmi = weight / (height * height);
     string strBMI;
         if (bmi < 18.5) strBMI = "Underweight";
@@ -349,7 +349,7 @@ string bmiCalculator(float weight, float height) {
     return strBMI;
 }
 
-void statistics(Database data) {
+void statistics(const Database& data) {
     ofstream file("statistics.txt");
     for (int i = 0; i < data.analysis.size();i++) {
         string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
