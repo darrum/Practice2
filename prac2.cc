@@ -164,7 +164,7 @@ void addPatient(Database& data) {
         if (nif.empty()) {
             return;
         }
-        if (name.size() < 3 && name.size() > KMAXNAME) {
+        if (name.size() < 3 || name.size() > KMAXNAME) {
             error(ERR_WRONG_NAME);
         }
         else {
