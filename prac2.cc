@@ -123,9 +123,11 @@ bool isValidNIF(const std::string& nif) {
     return std::regex_match(nif, nifPattern);
 }
 
-bool isValidDate(const std::string& date) {
-    std::regex datePattern("^[1-31]/[1-12]/[2025-2050]$"); // 8 digits + 1 uppercase letter
-    return std::regex_match(date, datePattern);
+bool isValidDate(const Date& date) {
+    if (date.month < 1 || date.month > 12 || date.day < 1 || date.day > 31 || date.year < 2025 || date.year > 2050) {
+        return false;
+    }
+    return true;
 }
 
 void addPatient(Database& data) {
@@ -198,7 +200,7 @@ void viewPatient(const Database& data) {
         if (nif.empty()) {
             return;
         }
-        patientIndex = searchPatient(data, nif); // -1
+        patientIndex = searchPatient(data, nif);
         if (patientIndex == -1) {
             error(ERR_PATIENT_NOT_EXISTS);
         }
@@ -267,7 +269,8 @@ void savePatients(const Database& data) {
 
 void addAnalysis(Database& data) {
     Analysis newAnalysis{data.nextId++};
-    string nif, date;
+    Date date;
+    string nif;
     float weight, height;
     bool patientExists = false, validDate, validWeight = false, validHeight = false;
 
@@ -290,12 +293,15 @@ void addAnalysis(Database& data) {
 
     do {
         cout << "Enter date (day/month/year):" << endl;
-        getline(cin, date);
+        char slash;  // To discard the slashes
+        cin >> date.day >> slash >> date.month >> slash >> date.year;
         validDate = isValidDate(date);
         if (!validDate) {
             error(ERR_WRONG_DATE);
         } else {
-            // strcpy(newAnalysis.dateAnalysis, date) //not finished, Date struct
+            newAnalysis.dateAnalysis.day = date.day;
+            newAnalysis.dateAnalysis.month = date.month;
+            newAnalysis.dateAnalysis.year = date.year;
         }
     } while (!validDate);
 
@@ -373,7 +379,7 @@ void statistics(const Database& data) {
     for (size_t i = 0; i < data.analysis.size();i++) {
         string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
 
-        cout << data.analysis[i].nif << ";"
+        cout << data.analysis[i].nif << ";" //not finished
         << data.analysis[i].dateAnalysis.day << "/"
         << data.analysis[i].dateAnalysis.month << "/"
         << data.analysis[i].dateAnalysis.year << ";"
