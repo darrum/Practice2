@@ -209,7 +209,7 @@ void viewPatient(const Database& data) {
     cout << "NIF: " << data.patients[patientIndex].nif << endl;
     cout << "Name: " << data.patients[patientIndex].name << endl;
     cout << "Telephone: " << data.patients[patientIndex].telephone << endl;
-    cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;;//not finished
+    cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;
 
     for (size_t i = 0; i < data.analysis.size(); i++) {
         if (data.analysis[i].nif == nif) {
@@ -348,7 +348,7 @@ void importAnalysis(Database& data) {
 
     Analysis binAnalysis{};
     while (fr.read((char *)&binAnalysis, sizeof(Analysis))) {
-        int patientIndex = searchPatient(data, binAnalysis.nif); //not finished
+        int patientIndex = searchPatient(data, binAnalysis.nif);
 
         if (patientIndex == -1) { //not sure about format
             fw << binAnalysis.id << ";"
@@ -379,7 +379,7 @@ void statistics(const Database& data) {
     for (size_t i = 0; i < data.analysis.size();i++) {
         string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
 
-        cout << data.analysis[i].nif << ";" //not finished
+        file << data.analysis[i].nif << ";"
         << data.analysis[i].dateAnalysis.day << "/"
         << data.analysis[i].dateAnalysis.month << "/"
         << data.analysis[i].dateAnalysis.year << ";"
@@ -387,6 +387,7 @@ void statistics(const Database& data) {
         << data.analysis[i].height << ";"
         << bmi << endl;
     }
+    file.close();
 }
 /*
 Función principal: Tendrás que añadir más código tuyo
