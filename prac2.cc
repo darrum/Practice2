@@ -137,7 +137,7 @@ void addPatient(Database& data) {
 
     do {
         int patientIndex;
-        cout << "Enter NIF: " << endl;
+        cout << "Enter NIF: ";
         getline(cin, nif);
         if (nif.empty()) {
             return;
@@ -159,7 +159,7 @@ void addPatient(Database& data) {
     } while (!legitNIF);
 
     do {
-        cout << "Enter name:" << endl;
+        cout << "Enter name:";
         getline(cin, name);
         if (nif.empty()) {
             return;
@@ -174,17 +174,17 @@ void addPatient(Database& data) {
     } while (!legitName);
 
     do {
-        cout << "Enter telephone:" << endl;
+        cout << "Enter telephone:";
         getline(cin, telephone);
         if (telephone.size() <= (KMAXTELEPHONE - 1) && telephone.size() >= 11) {
             if (telephone[0] != '+') { // not finished about numbers
-                error(ERR_WRONG_NUMBER);
+                error(ERR_WRONG_TELEPHONE);
             } else {
                 legitPhone = true;
                 newPatient.telephone = telephone;
             }
         } else {
-            error(ERR_WRONG_NUMBER);
+            error(ERR_WRONG_TELEPHONE);
         }
     } while (!legitPhone);
 
@@ -364,6 +364,27 @@ void importAnalysis(Database& data) {
     }
 }
 
+void loadPatients() {
+    ifstream fr("patients.bin", ios::binary);
+    PatientBin binP;
+
+    if (fr.is_open()) {
+        cout << "Opened" << endl;
+        while (fr.read((char *)&binP, sizeof(PatientBin))) {
+            cout << binP.name << ";"
+            << binP.nif << ";"
+            << binP.telephone;
+        }
+    }
+
+    if (fr.eof()) {
+        cout << "EOF" << endl;
+    } else {
+        cout << "Reading error" << endl;
+    }
+    fr.close();
+}
+
 string bmiCalculator(const float& weight, const float& height) {
     float bmi = weight / (height * height);
     string strBMI;
@@ -397,6 +418,7 @@ int main(int argc, char *argv[]){
     Database data;
     data.nextId=1;
     char option;
+    loadPatients();
 
     do{
         showMenu();
