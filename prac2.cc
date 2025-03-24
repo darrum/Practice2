@@ -2,7 +2,7 @@
 #include <fstream> // Para usar ficheros
 #include <vector> // Para usar vector
 #include <regex>
-
+#include <cstring>
 using namespace std;
 
 const int KMAXNIF=10;
