@@ -1,0 +1,451 @@
+alumno@clL030I-6:~/Descargas/autocorrector-prac2$ ./autocorrectorP2p2.sh 
+*********************************************************
+Autocorrector P2p2
+ Generando ficheros auxiliares... 
+
+*********************************************************
+ Compilando...
+*********************************************************
+
+*********************************************************
+ Ejecutando y comprobando salida a la vez...
+*********************************************************
+
+------------------------------------------------------------------------
+¡AVISO! : TODAS LAS PRUEBAS CARGAN INICIALMENTE EL FICHERO patients.bin 
+EXCEPTO EN AQUELLAS QUE EXPLÍCITAMENTE SE INDIQUE OTRA COSA 
+------------------------------------------------------------------------
+
+Prueba 01_addPatients
+
+Esta primera prueba no carga el fichero patients.bin
+69,74c69,79
+< Enter NIF: Enter name:ERROR: wrong name 
+< Enter name:Enter telephone:ERROR: wrong telephone number
+< Enter telephone:ERROR: wrong telephone number
+< Enter telephone:ERROR: wrong telephone number
+< Enter telephone:ERROR: wrong telephone number
+< Enter telephone:1- Add patient
+---
+> Enter NIF: Enter name: Enter telephone: 1- Add patient
+> 2- View Patient
+> 3- Delete patient
+> 4- Save patients
+> 5- Add analysis
+> 6- Export analysis
+> 7- Import analysis
+> 8- Statistics
+> q- Quit
+> Option: Enter NIF: ERROR: patient already exists
+> Enter NIF: Enter name: Enter telephone: 1- Add patient
+--------------------------
+Prueba 02_loadPatients
+
+OK
+--------------------------
+Prueba 03_addAnalysis
+
+45c45,47
+< Enter date (day/month/year):Enter weight:Enter weight:Enter height:Enter height:1- Add patient
+---
+> Enter date (day/month/year): Enter weight: ERROR: wrong number 
+> Enter weight: Enter height: ERROR: wrong number 
+> Enter height: 1- Add patient
+--------------------------
+Prueba 04_viewPatient
+
+64,67c64,65
+< Option: Enter NIF: 
+< ERROR: patient does not exist
+< Enter NIF: 
+< 1- Add patient
+---
+> Option: Enter NIF: ERROR: patient does not exist
+> Enter NIF: 1- Add patient
+76,77c74
+< Option: Enter NIF: 
+< NIF: 44444444P
+---
+> Option: Enter NIF: NIF: 44444444P
+79c76
+< Telephone: 
+---
+> Telephone: +55555555555
+81,82c78,79
+< 2	1/1/2050	150	90
+< 3	7/7/2030	190	45
+---
+> 2	01/01/2050	150	90
+> 3	07/07/2030	190	45
+92,93c89
+< Option: Enter NIF: 
+< NIF: 44333222Q
+---
+> Option: Enter NIF: NIF: 44333222Q
+95c91
+< Telephone: 
+---
+> Telephone: +34667743662
+97c93
+< 1	30/2/2030	210	105
+---
+> 1	30/02/2030	210	105
+107,112c103,105
+< Option: Enter NIF: 
+< ERROR: patient does not exist
+< Enter NIF: 
+< ERROR: patient does not exist
+< Enter NIF: 
+< NIF: 21444709T
+---
+> Option: Enter NIF: ERROR: wrong NIF 
+> Enter NIF: ERROR: patient does not exist
+> Enter NIF: NIF: 21444709T
+116c109
+< 4	24/3/2041	174	56.0106
+---
+> 4	24/03/2041	174	56.0106
+127,128c120
+< Option: Enter NIF: 
+< NIF: 99888777A
+---
+> Option: Enter NIF: NIF: 99888777A
+130,131c122
+< Telephone: 
+< Id 	Date 	Height 	Weight 	
+---
+> Telephone: +45999888876
+--------------------------
+Prueba 05_exportAnalysis
+
+OK
+--------------------------
+Prueba 06_importAnalysis
+
+19,20c19
+< Option: Enter NIF: 
+< NIF: 44333222Q
+---
+> Option: Enter NIF: NIF: 44333222Q
+22c21
+< Telephone: 
+---
+> Telephone: +34667743662
+24,26c23,25
+< 2	30/2/2030	210	105
+< 7	12/7/2029	162	78.6
+< 11	24/3/2041	174	56.0106
+---
+> 2	30/02/2030	210	105
+> 6	12/07/2029	162	78.6
+> 7	24/03/2041	174	56.0106
+36,37c35
+< Option: Enter NIF: 
+< NIF: 44444444P
+---
+> Option: Enter NIF: NIF: 44444444P
+39c37
+< Telephone: 
+---
+> Telephone: +55555555555
+41,42c39,40
+< 3	1/1/2050	150	90
+< 4	7/7/2030	190	45
+---
+> 3	01/01/2050	150	90
+> 4	07/07/2030	190	45
+52,53c50
+< Option: Enter NIF: 
+< NIF: 99888777A
+---
+> Option: Enter NIF: NIF: 99888777A
+55c52
+< Telephone: 
+---
+> Telephone: +45999888876
+58c55
+< 6	21/5/2039	180	59.616
+---
+> 5	21/05/2039	180	59.616
+104,105c101
+< Option: Enter NIF: 
+< NIF: 21444709T
+---
+> Option: Enter NIF: NIF: 21444709T
+109,114c105,110
+< 5	24/3/2041	174	56.0106
+< 8	31/12/2050	160	150
+< 12	24/4/2042	174	56
+< 5	24/3/2041	174	56.0106
+< 8	31/12/2050	160	150
+< 12	24/4/2042	174	56
+---
+> 12	24/03/2041	174	56.0106
+> 15	31/12/2050	160	150
+> 17	24/04/2042	174	56
+> 22	24/03/2041	174	56.0106
+> 25	31/12/2050	160	150
+> 29	24/04/2042	174	56
+124,125c120
+< Option: Enter NIF: 
+< NIF: 21000000Y
+---
+> Option: Enter NIF: NIF: 21000000Y
+129,130c124,125
+< 9	7/7/2030	190	45
+< 10	12/12/2033	195	78
+---
+> 26	07/07/2030	190	45
+> 27	12/12/2033	195	78
+--------------------------
+Prueba 07_deletePatient
+
+19,20c19
+< Option: Enter NIF: 
+< NIF: 44444444P
+---
+> Option: Enter NIF: NIF: 44444444P
+22c21
+< Telephone: 
+---
+> Telephone: +55555555555
+24,25c23,24
+< 3	1/1/2050	150	90
+< 4	7/7/2030	190	45
+---
+> 3	01/01/2050	150	90
+> 4	07/07/2030	190	45
+54,57c53,54
+< Option: Enter NIF: 
+< ERROR: patient does not exist
+< Enter NIF: 
+< 1- Add patient
+---
+> Option: Enter NIF: ERROR: patient does not exist
+> Enter NIF: 1- Add patient
+76,77c73
+< Option: Enter NIF: 
+< NIF: 44333222Q
+---
+> Option: Enter NIF: NIF: 44333222Q
+79c75
+< Telephone: 
+---
+> Telephone: +34667743662
+81,83c77,79
+< 2	30/2/2030	210	105
+< 7	12/7/2029	162	78.6
+< 11	24/3/2041	174	56.0106
+---
+> 2	30/02/2030	210	105
+> 6	12/07/2029	162	78.6
+> 7	24/03/2041	174	56.0106
+102,105c98,99
+< Option: Enter NIF: 
+< ERROR: patient does not exist
+< Enter NIF: 
+< 1- Add patient
+---
+> Option: Enter NIF: ERROR: patient does not exist
+> Enter NIF: 1- Add patient
+--------------------------
+Prueba 08_statistics
+
+Esta prueba carga de inicio el fichero files/patients2.bin
+19c19,29
+< Option: 1- Add patient
+---
+> Option: 99888777A;31/11/2025;72;170;Healthy
+> 44333222Q;30/02/2030;105;210;Healthy
+> 44444444P;01/01/2050;90;150;Obesity
+> 44444444P;07/07/2030;45;190;Underweight
+> 21444709T;24/03/2041;56.0106;174;Healthy
+> 99888777A;21/05/2039;59.616;180;Underweight
+> 44333222Q;12/07/2029;78.6;162;Overweight
+> 21444709T;31/12/2050;150;160;Obesity
+> 44333222Q;24/03/2041;56.0106;174;Healthy
+> 21444709T;24/04/2042;56;174;Underweight
+> 1- Add patient
+--------------------------
+Prueba 09_savePatients
+
+Esta prueba carga de inicio el fichero files/patients2.bin
+ERROR DE EJECUCION...
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 10_arguments_error
+ (argumentos:-n pruebas/analysis.txt -s)
+ERROR DE EJECUCION...
+==9959== Conditional jump or move depends on uninitialised value(s)
+==9959==    at 0x10FDAD: main (prac2.cc:423)
+==9959== 
+==9959== Conditional jump or move depends on uninitialised value(s)
+==9959==    at 0x10FE9C: main (prac2.cc:444)
+==9959== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 11_arguments_error
+ (argumentos:-s )
+ERROR DE EJECUCION...
+==9965== Conditional jump or move depends on uninitialised value(s)
+==9965==    at 0x10FDAD: main (prac2.cc:423)
+==9965== 
+==9965== Conditional jump or move depends on uninitialised value(s)
+==9965==    at 0x10FE9C: main (prac2.cc:444)
+==9965== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 12_arguments_error
+ (argumentos:-f )
+ERROR DE EJECUCION...
+==9971== Conditional jump or move depends on uninitialised value(s)
+==9971==    at 0x10FDAD: main (prac2.cc:423)
+==9971== 
+==9971== Conditional jump or move depends on uninitialised value(s)
+==9971==    at 0x10FE9C: main (prac2.cc:444)
+==9971== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 13_arguments_error
+ (argumentos:-s )
+ERROR DE EJECUCION...
+==9977== Conditional jump or move depends on uninitialised value(s)
+==9977==    at 0x10FDAD: main (prac2.cc:423)
+==9977== 
+==9977== Conditional jump or move depends on uninitialised value(s)
+==9977==    at 0x10FE9C: main (prac2.cc:444)
+==9977== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 14_arguments_error
+ (argumentos:-s -f)
+ERROR DE EJECUCION...
+==9983== Conditional jump or move depends on uninitialised value(s)
+==9983==    at 0x10FDAD: main (prac2.cc:423)
+==9983== 
+==9983== Conditional jump or move depends on uninitialised value(s)
+==9983==    at 0x10FE9C: main (prac2.cc:444)
+==9983== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 15_arguments_error
+ (argumentos:-s -f fileNotExist.txt -s)
+ERROR DE EJECUCION...
+==9990== Conditional jump or move depends on uninitialised value(s)
+==9990==    at 0x10FDAD: main (prac2.cc:423)
+==9990== 
+==9990== Conditional jump or move depends on uninitialised value(s)
+==9990==    at 0x10FE9C: main (prac2.cc:444)
+==9990== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 16_arguments_ok
+ (argumentos:-f fileNotExist.txt -s)
+ERROR DE EJECUCION...
+==9996== Conditional jump or move depends on uninitialised value(s)
+==9996==    at 0x10FDAD: main (prac2.cc:423)
+==9996== 
+==9996== Conditional jump or move depends on uninitialised value(s)
+==9996==    at 0x10FE9C: main (prac2.cc:444)
+==9996== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 17_arguments_ok
+ (argumentos:-f files/analytics.txt)
+10,11c10
+< Option: Enter NIF: 
+< NIF: 44444444P
+---
+> Option: Enter NIF: NIF: 44444444P
+13c12
+< Telephone: 
+---
+> Telephone: +55555555555
+14a14,15
+> 3	01/01/2050	150	90
+> 4	07/07/2030	190	45
+24,25c25
+< Option: Enter NIF: 
+< NIF: 44333222Q
+---
+> Option: Enter NIF: NIF: 44333222Q
+27c27
+< Telephone: 
+---
+> Telephone: +34667743662
+28a29,31
+> 2	30/02/2030	210	105
+> 6	12/07/2029	162	78.6
+> 7	24/03/2041	174	56.0106
+38,39c41
+< Option: Enter NIF: 
+< NIF: 99888777A
+---
+> Option: Enter NIF: NIF: 99888777A
+41c43
+< Telephone: 
+---
+> Telephone: +45999888876
+42a45,46
+> 1	31/11/2025	170	72
+> 5	21/05/2039	180	59.616
+--------------------------
+Prueba 18_arguments_ok
+ (argumentos: -f files/analytics.txt -s )
+ERROR DE EJECUCION...
+==10008== Conditional jump or move depends on uninitialised value(s)
+==10008==    at 0x10FDAD: main (prac2.cc:423)
+==10008== 
+==10008== Conditional jump or move depends on uninitialised value(s)
+==10008==    at 0x10FE9C: main (prac2.cc:444)
+==10008== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 19_arguments_ok
+ (argumentos:-s -f files/analytics.txt)
+ERROR DE EJECUCION...
+==10014== Conditional jump or move depends on uninitialised value(s)
+==10014==    at 0x10FDAD: main (prac2.cc:423)
+==10014== 
+==10014== Conditional jump or move depends on uninitialised value(s)
+==10014==    at 0x10FE9C: main (prac2.cc:444)
+==10014== 
+ERROR, fichero de salida muy grande (cuelgue?)... 
+--------------------------
+Prueba 20_arguments_ok
+ (argumentos:-f fileNotExist.txt)
+0a1
+> ERROR: cannot open file
+10,11c11
+< Option: Enter NIF: 
+< NIF: 44333222Q
+---
+> Option: Enter NIF: NIF: 44333222Q
+13,14c13
+< Telephone: 
+< Id 	Date 	Height 	Weight 	
+---
+> Telephone: +34667743662
+24,25c23
+< Option: Enter NIF: 
+< NIF: 44444444P
+---
+> Option: Enter NIF: NIF: 44444444P
+27,28c25
+< Telephone: 
+< Id 	Date 	Height 	Weight 	
+---
+> Telephone: +55555555555
+38,39c35
+< Option: Enter NIF: 
+< NIF: 99888777A
+---
+> Option: Enter NIF: NIF: 99888777A
+41,42c37
+< Telephone: 
+< Id 	Date 	Height 	Weight 	
+---
+> Telephone: +45999888876
+--------------------------
+
+OJO: FALLAN 18 PRUEBAS DEL AUTOCORRECTOR
