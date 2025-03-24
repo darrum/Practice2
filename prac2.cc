@@ -364,24 +364,21 @@ void importAnalysis(Database& data) {
     }
 }
 
-void loadPatients() {
+void loadPatients(Database & data) {
     ifstream fr("patients.bin", ios::binary);
     PatientBin binP;
+    Patient strP;
 
     if (fr.is_open()) {
         cout << "Opened" << endl;
         while (fr.read((char *)&binP, sizeof(PatientBin))) {
-            cout << binP.name << ";"
-            << binP.nif << ";"
-            << binP.telephone;
+            strP.name = binP.name;
+            strP.nif = binP.nif;
+            strP.telephone = binP.telephone;
+            data.patients.push_back(strP);
         }
     }
 
-    if (fr.eof()) {
-        cout << "EOF" << endl;
-    } else {
-        cout << "Reading error" << endl;
-    }
     fr.close();
 }
 
@@ -418,7 +415,7 @@ int main(int argc, char *argv[]){
     Database data;
     data.nextId=1;
     char option;
-    loadPatients();
+    loadPatients(data);
 
     do{
         showMenu();
