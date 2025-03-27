@@ -269,7 +269,7 @@ void savePatients(const Database& data) {
     file.close();
 }
 
-void addAnalysis(Database& data, int nextId) {
+void addAnalysis(Database& data) {
     Analysis newAnalysis{data.nextId++};
     Date date;
     string nif;
@@ -399,18 +399,36 @@ string bmiCalculator(const float& weight, const float& height) {
 
 void statistics(const Database& data) {
     ofstream file("statistics.txt");
-    for (size_t i = 0; i < data.analysis.size();i++) {
-        string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
 
-        file << data.analysis[i].nif << ";"
-        << data.analysis[i].dateAnalysis.day << "/"
-        << data.analysis[i].dateAnalysis.month << "/"
-        << data.analysis[i].dateAnalysis.year << ";"
-        << data.analysis[i].weight << ";"
-        << data.analysis[i].height << ";"
-        << bmi << endl;
+    if (file.is_open()) {
+        for (size_t i = 0; i < data.analysis.size();i++) {
+            string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
+
+            cout << data.analysis[i].nif << ";"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.year << ";"
+            << data.analysis[i].weight << ";"
+            << data.analysis[i].height << ";"
+            << bmi << endl;
+
+            file << data.analysis[i].nif << ";"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.year << ";"
+            << data.analysis[i].weight << ";"
+            << data.analysis[i].height << ";"
+            << bmi << endl;
+        }
     }
+    file.flush();
     file.close();
+
+    ifstream fr("statistics.txt");
+    if (file.is_open()) {
+        cout << "Opened fr";
+    }
+    fr.close();
 }
 /*
 Función principal: Tendrás que añadir más código tuyo
