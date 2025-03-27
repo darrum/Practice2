@@ -370,7 +370,6 @@ void loadPatients(Database & data) {
     Patient strP;
 
     if (fr.is_open()) {
-        cout << "Opened" << endl;
         while (fr.read((char *)&binP, sizeof(PatientBin))) {
             strP.name = binP.name;
             strP.nif = binP.nif;
