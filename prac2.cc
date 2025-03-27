@@ -195,7 +195,7 @@ void viewPatient(const Database& data) {
     string nif;
     int patientIndex = -1;
     while (patientIndex == -1){
-        cout << "Enter NIF: " << endl;
+        cout << "Enter NIF: ";
         getline(cin, nif);
         if (nif.empty()) {
             return;
@@ -317,7 +317,7 @@ void addAnalysis(Database& data) {
     } while(!validWeight);
 
     do {
-        cout << "Enter height:" << endl;
+        cout << "Enter height:";
         cin >> height;
         if (height > 0) {
             validHeight = true;
@@ -374,7 +374,6 @@ void loadPatients(Database & data) {
     Patient strP;
 
     if (fr.is_open()) {
-        cout << "Opened" << endl;
         while (fr.read((char *)&binP, sizeof(PatientBin))) {
             strP.name = binP.name;
             strP.nif = binP.nif;
