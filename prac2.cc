@@ -3,6 +3,8 @@
 #include <vector> // Para usar vector
 #include <regex>
 #include <cstring>
+#include <iomanip>
+
 using namespace std;
 
 const int KMAXNIF=10;
@@ -106,7 +108,6 @@ void showMenu() {
          << "Option: ";
 }
 
-
 int searchPatient(const Database& data, const string &nif) { //not finished
     int patientIndex = -1;
     bool found = false;
@@ -165,7 +166,7 @@ void addPatient(Database& data) {
         if (nif.empty()) {
             return;
         }
-        if (name.size() < 2 || name.size() > KMAXNAME) {
+        if (name.size() < 3 || name.size() > KMAXNAME) {
             error(ERR_WRONG_NAME);
         }
         else {
@@ -215,9 +216,9 @@ void viewPatient(const Database& data) {
     for (size_t i = 0; i < data.analysis.size(); i++) {
         if (data.analysis[i].nif == nif) {
             cout << data.analysis[i].id << "\t"
-            << data.analysis[i].dateAnalysis.day << "/"
-            << data.analysis[i].dateAnalysis.month << "/"
-            << data.analysis[i].dateAnalysis.year << "\t"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
+            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.year << "\t"
             << data.analysis[i].height << "\t"
             << data.analysis[i].weight << endl;
         }
@@ -268,7 +269,7 @@ void savePatients(const Database& data) {
     file.close();
 }
 
-void addAnalysis(Database& data) {
+void addAnalysis(Database& data, int nextId) {
     Analysis newAnalysis{data.nextId++};
     Date date;
     string nif;
@@ -419,22 +420,13 @@ int main(int argc, char *argv[]){
     Database data;
     data.nextId=1;
     char option;
-
     loadPatients(data);
-
-    // for (int i = 0; i < argv; i++) {
-    //     if (argv[i] == '-s') {
-    //         //statistics
-    //     } else if (argv[i] == '-f'){
-    //         //load file
-    //     }
-    // }
 
     do{
         showMenu();
         cin >> option;
         cin.ignore();
-        
+
         switch(option){
             case '1': addPatient(data); // Llamar a la función "addPatient" para añadir una nueva ficha de paciente
                 break;
@@ -452,11 +444,11 @@ int main(int argc, char *argv[]){
                 break;
             case '8': statistics(data);// Llamar a la función "statistics" para guardar las preguntas en fichero
                 break;
-            case 'q': // Salir del programa 
+            case 'q': // Salir del programa
                 break;
             default: error(ERR_OPTION);
         }
     } while(option!='q');
-   
+
     return 0;
 }
