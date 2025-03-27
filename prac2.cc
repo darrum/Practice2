@@ -106,6 +106,7 @@ void showMenu() {
          << "Option: ";
 }
 
+
 int searchPatient(const Database& data, const string &nif) { //not finished
     int patientIndex = -1;
     bool found = false;
