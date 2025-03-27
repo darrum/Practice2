@@ -430,6 +430,23 @@ void statistics(const Database& data) {
     }
     fr.close();
 }
+
+bool arguments(static int argc, static char *argv[], bool &statistics, bool &fileProvided){
+    int fileIndex = -1;
+    for (int i = 0; i < argc; i++) {
+        if (strcmp(argv[i],"-f") == 0 && fileProvided == false) {
+            if (i + 1 < argc) {
+                fileProvided = true;
+                fileIndex = ++i;
+            }
+        } else if (strcmp(argv[i],"-s") == 0 && statistics == false) {
+            statistics = true;
+        }
+    }
+
+    return fileIndex;
+}
+
 /*
 Función principal: Tendrás que añadir más código tuyo
 return: 0
@@ -438,7 +455,21 @@ int main(int argc, char *argv[]){
     Database data;
     data.nextId=1;
     char option;
+
     loadPatients(data);
+
+    bool fileProvided = false, statisticsbool = false;
+    int fileIndex = arguments(argc, argv, statisticsbool, fileProvided);
+
+    if(fileProvided) {
+        // importFile
+        if(statisticsbool) {
+            statistics(data);
+        }
+    } else {
+        error(ERR_ARGS);
+    }
+
 
     do{
         showMenu();
