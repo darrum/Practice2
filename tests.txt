@@ -1,3 +1,20 @@
+*********************************************************
+Autocorrector P2p2
+ Generando ficheros auxiliares... 
+
+*********************************************************
+ Compilando...
+*********************************************************
+
+*********************************************************
+ Ejecutando y comprobando salida a la vez...
+*********************************************************
+
+------------------------------------------------------------------------
+¡AVISO! : TODAS LAS PRUEBAS CARGAN INICIALMENTE EL FICHERO patients.bin 
+EXCEPTO EN AQUELLAS QUE EXPLÍCITAMENTE SE INDIQUE OTRA COSA 
+------------------------------------------------------------------------
+
 Prueba 01_addPatients
 
 Esta primera prueba no carga el fichero patients.bin
@@ -23,298 +40,66 @@ Esta primera prueba no carga el fichero patients.bin
 --------------------------
 Prueba 02_loadPatients
 
-1d0
-< Opened
+OK
 --------------------------
 Prueba 03_addAnalysis
 
-1d0
-< Opened
-11,12c10
-< Option: Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: 1- Add patient
-21,24c19,20
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: 1- Add patient
-42,62c38,47
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< Enter date (day/month/year):
-< ERROR: wrong date
-< Enter date (day/month/year):
-< ERROR: wrong date
-< Enter date (day/month/year):
-< ERROR: wrong date
-< Enter date (day/month/year):
-< ERROR: wrong date
-< Enter date (day/month/year):
-< ERROR: wrong date
-< Enter date (day/month/year):
-< ERROR: wrong date
-< Enter date (day/month/year):
-< Enter weight:
-< Enter weight:
-< Enter height:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: Enter date (day/month/year): ERROR: wrong date
-> Enter date (day/month/year): ERROR: wrong date
-> Enter date (day/month/year): ERROR: wrong date
-> Enter date (day/month/year): ERROR: wrong date
-> Enter date (day/month/year): ERROR: wrong date
-> Enter date (day/month/year): ERROR: wrong date
-> Enter date (day/month/year): Enter weight: ERROR: wrong number 
-> Enter weight: Enter height: ERROR: wrong number 
-> Enter height: 1- Add patient
-71,75c56
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-84,88c65
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-97,101c74
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-110,114c83
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-123,127c92
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-136,139c101,102
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: 1- Add patient
+OK
 --------------------------
 Prueba 04_viewPatient
 
-1d0
-< Opened
-20,24c19
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-33,37c28
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-46,50c37
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-59,63c46
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-72,76c55
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-85,88c64,65
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: 1- Add patient
-97,98c74
-< Option: Enter NIF: 
-< NIF: 44444444P
----
-> Option: Enter NIF: NIF: 44444444P
-102,103c78,79
+78,79c78,79
 < 2	1/1/2050	150	90
 < 3	7/7/2030	190	45
 ---
 > 2	01/01/2050	150	90
 > 3	07/07/2030	190	45
-113,114c89
-< Option: Enter NIF: 
-< NIF: 44333222Q
----
-> Option: Enter NIF: NIF: 44333222Q
-118c93
+93c93
 < 1	30/2/2030	210	105
 ---
 > 1	30/02/2030	210	105
-128,133c103,105
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< NIF: 21444709T
+103c103
+< Option: Enter NIF: ERROR: patient does not exist
 ---
 > Option: Enter NIF: ERROR: wrong NIF 
-> Enter NIF: ERROR: patient does not exist
-> Enter NIF: NIF: 21444709T
-137c109
+109c109
 < 4	24/3/2041	174	56.0106
 ---
 > 4	24/03/2041	174	56.0106
-148,149c120
-< Option: Enter NIF: 
-< NIF: 99888777A
----
-> Option: Enter NIF: NIF: 99888777A
-152d122
+123d122
 < Id 	Date 	Height 	Weight 	
 --------------------------
 Prueba 05_exportAnalysis
 
-1d0
-< Opened
-20,24c19
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-33,37c28
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-46,50c37
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-59,63c46
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-72,76c55
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
-85,89c64
-< Option: Enter NIF: 
-< Enter date (day/month/year):
-< Enter weight:
-< Enter height:
-< 1- Add patient
----
-> Option: Enter NIF: Enter date (day/month/year): Enter weight: Enter height: 1- Add patient
+OK
 --------------------------
 Prueba 06_importAnalysis
 
-1d0
-< Opened
-20,21c19
-< Option: Enter NIF: 
-< NIF: 44333222Q
----
-> Option: Enter NIF: NIF: 44333222Q
-25,27c23,25
+23,25c23,25
 < 2	30/2/2030	210	105
-< 5	12/7/2029	162	78.6
-< 6	24/3/2041	174	56.0106
+< 7	12/7/2029	162	78.6
+< 11	24/3/2041	174	56.0106
 ---
 > 2	30/02/2030	210	105
 > 6	12/07/2029	162	78.6
 > 7	24/03/2041	174	56.0106
-37,38c35
-< Option: Enter NIF: 
-< NIF: 44444444P
----
-> Option: Enter NIF: NIF: 44444444P
-42c39,40
+39,40c39,40
 < 3	1/1/2050	150	90
+< 4	7/7/2030	190	45
 ---
 > 3	01/01/2050	150	90
 > 4	07/07/2030	190	45
-52,53c50
-< Option: Enter NIF: 
-< NIF: 99888777A
+55c55
+< 6	21/5/2039	180	59.616
 ---
-> Option: Enter NIF: NIF: 99888777A
-57a55
 > 5	21/05/2039	180	59.616
-103,104c101
-< Option: Enter NIF: 
-< NIF: 21444709T
----
-> Option: Enter NIF: NIF: 21444709T
-108,109c105,110
-< 4	24/3/2041	174	56.0106
-< 4	24/3/2041	174	56.0106
+105,110c105,110
+< 5	24/3/2041	174	56.0106
+< 8	31/12/2050	160	150
+< 12	24/4/2042	174	56
+< 5	24/3/2041	174	56.0106
+< 8	31/12/2050	160	150
+< 12	24/4/2042	174	56
 ---
 > 12	24/03/2041	174	56.0106
 > 15	31/12/2050	160	150
@@ -322,91 +107,34 @@ Prueba 06_importAnalysis
 > 22	24/03/2041	174	56.0106
 > 25	31/12/2050	160	150
 > 29	24/04/2042	174	56
-119,120c120
-< Option: Enter NIF: 
-< NIF: 21000000Y
+124,125c124,125
+< 9	7/7/2030	190	45
+< 10	12/12/2033	195	78
 ---
-> Option: Enter NIF: NIF: 21000000Y
-123a124,125
 > 26	07/07/2030	190	45
 > 27	12/12/2033	195	78
 --------------------------
 Prueba 07_deletePatient
 
-1d0
-< Opened
-20,21c19
-< Option: Enter NIF: 
-< NIF: 44444444P
----
-> Option: Enter NIF: NIF: 44444444P
-25c23,24
+23,24c23,24
 < 3	1/1/2050	150	90
+< 4	7/7/2030	190	45
 ---
 > 3	01/01/2050	150	90
 > 4	07/07/2030	190	45
-35,38c34,35
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: 1- Add patient
-47,48c44
-< Option: Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: 1- Add patient
-57,60c53,54
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: 1- Add patient
-69,72c63,64
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: 1- Add patient
-81,82c73
-< Option: Enter NIF: 
-< NIF: 44333222Q
----
-> Option: Enter NIF: NIF: 44333222Q
-86,88c77,79
+77,79c77,79
 < 2	30/2/2030	210	105
-< 5	12/7/2029	162	78.6
-< 6	24/3/2041	174	56.0106
+< 7	12/7/2029	162	78.6
+< 11	24/3/2041	174	56.0106
 ---
 > 2	30/02/2030	210	105
 > 6	12/07/2029	162	78.6
 > 7	24/03/2041	174	56.0106
-98,99c89
-< Option: Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: 1- Add patient
-108,111c98,99
-< Option: Enter NIF: 
-< ERROR: patient does not exist
-< Enter NIF: 
-< 1- Add patient
----
-> Option: Enter NIF: ERROR: patient does not exist
-> Enter NIF: 1- Add patient
 --------------------------
 Prueba 08_statistics
 
 Esta prueba carga de inicio el fichero files/patients2.bin
-1d0
-< Opened
-20c19,29
+19c19,29
 < Option: 1- Add patient
 ---
 > Option: 99888777A;31/11/2025;72;170;Healthy
@@ -430,159 +158,125 @@ ERROR, fichero de salida muy grande (cuelgue?)...
 Prueba 10_arguments_error
  (argumentos:-n pruebas/analysis.txt -s)
 ERROR DE EJECUCION...
-==4945== Conditional jump or move depends on uninitialised value(s)
-==4945==    at 0x10FE36: main (prac2.cc:425)
-==4945== 
-==4945== Conditional jump or move depends on uninitialised value(s)
-==4945==    at 0x10FF25: main (prac2.cc:446)
-==4945== 
+==6877== Conditional jump or move depends on uninitialised value(s)
+==6877==    at 0x10FDAC: main (prac2.cc:428)
+==6877== 
+==6877== Conditional jump or move depends on uninitialised value(s)
+==6877==    at 0x10FE9B: main (prac2.cc:449)
+==6877== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 11_arguments_error
  (argumentos:-s )
 ERROR DE EJECUCION...
-==4951== Conditional jump or move depends on uninitialised value(s)
-==4951==    at 0x10FE36: main (prac2.cc:425)
-==4951== 
-==4951== Conditional jump or move depends on uninitialised value(s)
-==4951==    at 0x10FF25: main (prac2.cc:446)
-==4951== 
+==6883== Conditional jump or move depends on uninitialised value(s)
+==6883==    at 0x10FDAC: main (prac2.cc:428)
+==6883== 
+==6883== Conditional jump or move depends on uninitialised value(s)
+==6883==    at 0x10FE9B: main (prac2.cc:449)
+==6883== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 12_arguments_error
  (argumentos:-f )
 ERROR DE EJECUCION...
-==4957== Conditional jump or move depends on uninitialised value(s)
-==4957==    at 0x10FE36: main (prac2.cc:425)
-==4957== 
-==4957== Conditional jump or move depends on uninitialised value(s)
-==4957==    at 0x10FF25: main (prac2.cc:446)
-==4957== 
+==6889== Conditional jump or move depends on uninitialised value(s)
+==6889==    at 0x10FDAC: main (prac2.cc:428)
+==6889== 
+==6889== Conditional jump or move depends on uninitialised value(s)
+==6889==    at 0x10FE9B: main (prac2.cc:449)
+==6889== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 13_arguments_error
  (argumentos:-s )
 ERROR DE EJECUCION...
-==4963== Conditional jump or move depends on uninitialised value(s)
-==4963==    at 0x10FE36: main (prac2.cc:425)
-==4963== 
-==4963== Conditional jump or move depends on uninitialised value(s)
-==4963==    at 0x10FF25: main (prac2.cc:446)
-==4963== 
+==6896== Conditional jump or move depends on uninitialised value(s)
+==6896==    at 0x10FDAC: main (prac2.cc:428)
+==6896== 
+==6896== Conditional jump or move depends on uninitialised value(s)
+==6896==    at 0x10FE9B: main (prac2.cc:449)
+==6896== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 14_arguments_error
  (argumentos:-s -f)
 ERROR DE EJECUCION...
-==4969== Conditional jump or move depends on uninitialised value(s)
-==4969==    at 0x10FE36: main (prac2.cc:425)
-==4969== 
-==4969== Conditional jump or move depends on uninitialised value(s)
-==4969==    at 0x10FF25: main (prac2.cc:446)
-==4969== 
+==6902== Conditional jump or move depends on uninitialised value(s)
+==6902==    at 0x10FDAC: main (prac2.cc:428)
+==6902== 
+==6902== Conditional jump or move depends on uninitialised value(s)
+==6902==    at 0x10FE9B: main (prac2.cc:449)
+==6902== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 15_arguments_error
  (argumentos:-s -f fileNotExist.txt -s)
 ERROR DE EJECUCION...
-==4976== Conditional jump or move depends on uninitialised value(s)
-==4976==    at 0x10FE36: main (prac2.cc:425)
-==4976== 
-==4976== Conditional jump or move depends on uninitialised value(s)
-==4976==    at 0x10FF25: main (prac2.cc:446)
-==4976== 
+==6908== Conditional jump or move depends on uninitialised value(s)
+==6908==    at 0x10FDAC: main (prac2.cc:428)
+==6908== 
+==6908== Conditional jump or move depends on uninitialised value(s)
+==6908==    at 0x10FE9B: main (prac2.cc:449)
+==6908== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 16_arguments_ok
  (argumentos:-f fileNotExist.txt -s)
 ERROR DE EJECUCION...
-==4982== Conditional jump or move depends on uninitialised value(s)
-==4982==    at 0x10FE36: main (prac2.cc:425)
-==4982== 
-==4982== Conditional jump or move depends on uninitialised value(s)
-==4982==    at 0x10FF25: main (prac2.cc:446)
-==4982== 
+==6914== Conditional jump or move depends on uninitialised value(s)
+==6914==    at 0x10FDAC: main (prac2.cc:428)
+==6914== 
+==6914== Conditional jump or move depends on uninitialised value(s)
+==6914==    at 0x10FE9B: main (prac2.cc:449)
+==6914== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 17_arguments_ok
  (argumentos:-f files/analytics.txt)
-1d0
-< Opened
-11,12c10
-< Option: Enter NIF: 
-< NIF: 44444444P
----
-> Option: Enter NIF: NIF: 44444444P
-15a14,15
+13a14,15
 > 3	01/01/2050	150	90
 > 4	07/07/2030	190	45
-25,26c25
-< Option: Enter NIF: 
-< NIF: 44333222Q
----
-> Option: Enter NIF: NIF: 44333222Q
-29a29,31
+26a29,31
 > 2	30/02/2030	210	105
 > 6	12/07/2029	162	78.6
 > 7	24/03/2041	174	56.0106
-39,40c41
-< Option: Enter NIF: 
-< NIF: 99888777A
----
-> Option: Enter NIF: NIF: 99888777A
-43a45,46
+39a45,46
 > 1	31/11/2025	170	72
 > 5	21/05/2039	180	59.616
 --------------------------
 Prueba 18_arguments_ok
  (argumentos: -f files/analytics.txt -s )
 ERROR DE EJECUCION...
-==4994== Conditional jump or move depends on uninitialised value(s)
-==4994==    at 0x10FE36: main (prac2.cc:425)
-==4994== 
-==4994== Conditional jump or move depends on uninitialised value(s)
-==4994==    at 0x10FF25: main (prac2.cc:446)
-==4994== 
+==6926== Conditional jump or move depends on uninitialised value(s)
+==6926==    at 0x10FDAC: main (prac2.cc:428)
+==6926== 
+==6926== Conditional jump or move depends on uninitialised value(s)
+==6926==    at 0x10FE9B: main (prac2.cc:449)
+==6926== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 19_arguments_ok
  (argumentos:-s -f files/analytics.txt)
 ERROR DE EJECUCION...
-==5000== Conditional jump or move depends on uninitialised value(s)
-==5000==    at 0x10FE36: main (prac2.cc:425)
-==5000== 
-==5000== Conditional jump or move depends on uninitialised value(s)
-==5000==    at 0x10FF25: main (prac2.cc:446)
-==5000== 
+==6933== Conditional jump or move depends on uninitialised value(s)
+==6933==    at 0x10FDAC: main (prac2.cc:428)
+==6933== 
+==6933== Conditional jump or move depends on uninitialised value(s)
+==6933==    at 0x10FE9B: main (prac2.cc:449)
+==6933== 
 ERROR, fichero de salida muy grande (cuelgue?)... 
 --------------------------
 Prueba 20_arguments_ok
  (argumentos:-f fileNotExist.txt)
-1c1
-< Opened
----
+0a1
 > ERROR: cannot open file
-11,12c11
-< Option: Enter NIF: 
-< NIF: 44333222Q
----
-> Option: Enter NIF: NIF: 44333222Q
-15d13
+13d13
 < Id 	Date 	Height 	Weight 	
-25,26c23
-< Option: Enter NIF: 
-< NIF: 44444444P
----
-> Option: Enter NIF: NIF: 44444444P
-29d25
+26d25
 < Id 	Date 	Height 	Weight 	
-39,40c35
-< Option: Enter NIF: 
-< NIF: 99888777A
----
-> Option: Enter NIF: NIF: 99888777A
-43d37
+39d37
 < Id 	Date 	Height 	Weight 	
 --------------------------
 
-OJO: FALLAN 20 PRUEBAS DEL AUTOCORRECTOR
+OJO: FALLAN 17 PRUEBAS DEL AUTOCORRECTOR
