@@ -463,6 +463,10 @@ int main(int argc, char *argv[]){
 
     if(fileProvided) {
         // importFile
+        //The BMI value read from the file should be ignored, and all the remaining information should be stored in records of
+        //type Analysis in the analysis vector of the database. For each test loaded into the system, assign the appropriate
+        //id as if it were being inserted from the Add analysis option. As in the Import analysis menu option, if a NIF does not exist in the database, the NIF of that
+        //patient will be written to a text file called wrong_patients.txt.
         if(statisticsbool) {
             statistics(data);
         }
