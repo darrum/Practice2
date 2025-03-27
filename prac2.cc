@@ -164,7 +164,7 @@ void addPatient(Database& data) {
         if (nif.empty()) {
             return;
         }
-        if (name.size() < 3 || name.size() > KMAXNAME) {
+        if (name.size() < 2 || name.size() > KMAXNAME) {
             error(ERR_WRONG_NAME);
         }
         else {
@@ -229,7 +229,7 @@ void deletePatient(Database& data) {
     int patientIndex;
 
     do {
-        cout << "Enter NIF: " << endl;
+        cout << "Enter NIF: ";
         getline(cin, nif); // nine characters are entered for the NIF, consisting of eight digits and one letter.
         if (nif.empty()) {
             return;
@@ -275,7 +275,7 @@ void addAnalysis(Database& data) {
     bool patientExists = false, validDate, validWeight = false, validHeight = false;
 
     do {
-        cout << "Enter NIF: " << endl;
+        cout << "Enter NIF: ";
         getline(cin, nif);
         if (nif.empty()) {
             return;
@@ -292,7 +292,7 @@ void addAnalysis(Database& data) {
     } while (!patientExists);
 
     do {
-        cout << "Enter date (day/month/year):" << endl;
+        cout << "Enter date (day/month/year):";
         char slash;  // To discard the slashes
         cin >> date.day >> slash >> date.month >> slash >> date.year;
         validDate = isValidDate(date);
@@ -306,11 +306,13 @@ void addAnalysis(Database& data) {
     } while (!validDate);
 
     do {
-        cout << "Enter weight:" << endl;
+        cout << "Enter weight:";
         cin >> weight;
         if (weight > 0) {
             validWeight = true;
             newAnalysis.weight = weight;
+        } else {
+            error(ERR_WRONG_NUMBER);
         }
     } while(!validWeight);
 
@@ -320,6 +322,8 @@ void addAnalysis(Database& data) {
         if (height > 0) {
             validHeight = true;
             newAnalysis.height = height;
+        } else {
+            error(ERR_WRONG_NUMBER);
         }
     } while(!validHeight);
 
@@ -415,7 +419,16 @@ int main(int argc, char *argv[]){
     Database data;
     data.nextId=1;
     char option;
+
     loadPatients(data);
+
+    // for (int i = 0; i < argv; i++) {
+    //     if (argv[i] == '-s') {
+    //         //statistics
+    //     } else if (argv[i] == '-f'){
+    //         //load file
+    //     }
+    // }
 
     do{
         showMenu();
