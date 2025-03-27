@@ -431,15 +431,17 @@ void statistics(const Database& data) {
     fr.close();
 }
 
-bool arguments(static int argc, static char *argv[], bool &statistics, bool &fileProvided){
+int arguments(int argc, char *argv[], bool &statistics, bool &fileProvided) {
     int fileIndex = -1;
-    for (int i = 0; i < argc; i++) {
-        if (strcmp(argv[i],"-f") == 0 && fileProvided == false) {
-            if (i + 1 < argc) {
+
+    for (int i = 1; i < argc; i++) { // Start from 1 since argv[0] is program name
+        if (strcmp(argv[i], "-f") == 0 && !fileProvided) {
+            if (i + 1 < argc) { // Ensure next argument exists
                 fileProvided = true;
-                fileIndex = ++i;
+                fileIndex = i + 1; // Save file index
+                i++; // Skip next argument (file name)
             }
-        } else if (strcmp(argv[i],"-s") == 0 && statistics == false) {
+        } else if (strcmp(argv[i], "-s") == 0 && !statistics) {
             statistics = true;
         }
     }
@@ -461,13 +463,13 @@ int main(int argc, char *argv[]){
     bool fileProvided = false, statisticsbool = false;
     int fileIndex = arguments(argc, argv, statisticsbool, fileProvided);
 
-    if(fileProvided) {
+    if (fileProvided) {
         // importFile
         //The BMI value read from the file should be ignored, and all the remaining information should be stored in records of
         //type Analysis in the analysis vector of the database. For each test loaded into the system, assign the appropriate
         //id as if it were being inserted from the Add analysis option. As in the Import analysis menu option, if a NIF does not exist in the database, the NIF of that
         //patient will be written to a text file called wrong_patients.txt.
-        if(statisticsbool) {
+        if (statisticsbool) {
             statistics(data);
         }
     } else {
