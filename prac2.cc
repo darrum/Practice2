@@ -492,6 +492,8 @@ int main(int argc, char *argv[]){
 
                     std::getline(s, temp, ';');
                     newAnalysis.height = stof(temp);
+
+                    data.analysis.push_back(newAnalysis);
                 }
             }
             fr.close();
