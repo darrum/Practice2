@@ -296,6 +296,7 @@ void addAnalysis(Database& data) {
             }
         } else {
             error(ERR_WRONG_NIF);
+        }
     } while (!patientExists);
 
     do {
