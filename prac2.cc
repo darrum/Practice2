@@ -389,7 +389,7 @@ void loadPatients(Database & data) {
 }
 
 string bmiCalculator(const float& weight, const float& height) {
-    float bmi = weight / (height * height);
+    float bmi = weight / ((height/100) * (height/100));
     string strBMI;
         if (bmi < 18.5) strBMI = "Underweight";
         else if (bmi < 25) strBMI = "Healthy";
