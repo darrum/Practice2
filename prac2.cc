@@ -333,7 +333,7 @@ void addAnalysis(Database& data) {
     data.analysis.push_back(newAnalysis);
 }
 
-void exportAnalysis(const Database data) {
+void exportAnalysis(const Database &data) {
     ofstream file("analysis.bin", ios::binary);
 
     if (file.is_open()) {
