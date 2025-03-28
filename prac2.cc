@@ -363,13 +363,7 @@ void importAnalysis(Database& data) {
         int patientIndex = searchPatient(data, binAnalysis.nif);
 
         if (patientIndex == -1) { //not sure about format
-            fw << binAnalysis.id << ";"
-            << binAnalysis.nif << ";"
-            << binAnalysis.dateAnalysis.day << "/"
-            << binAnalysis.dateAnalysis.month << "/"
-            << binAnalysis.dateAnalysis.year << ";"
-            << binAnalysis.height << ";"
-            << binAnalysis.weight << endl;
+            fw << binAnalysis.nif << endl;
         } else {
             binAnalysis.id = data.nextId++;
             data.analysis.push_back(binAnalysis);
