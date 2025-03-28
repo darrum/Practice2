@@ -4,6 +4,7 @@
 #include <regex>
 #include <cstring>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -421,14 +422,7 @@ void statistics(const Database& data) {
             << bmi << endl;
         }
     }
-    file.flush();
     file.close();
-
-    ifstream fr("statistics.txt");
-    if (file.is_open()) {
-        cout << "Opened fr";
-    }
-    fr.close();
 }
 
 int arguments(int argc, char *argv[], bool &statistics, bool &fileProvided) {
@@ -460,18 +454,54 @@ int main(int argc, char *argv[]){
 
     loadPatients(data);
 
-    bool fileProvided = false, statisticsbool = false;
-    int fileIndex = arguments(argc, argv, statisticsbool, fileProvided);
+    bool fileProvided = false, statisticsBool = false;
+    int fileIndex = arguments(argc, argv, statisticsBool, fileProvided);
 
     if (fileProvided) {
-        // importFile
-        //The BMI value read from the file should be ignored, and all the remaining information should be stored in records of
-        //type Analysis in the analysis vector of the database. For each test loaded into the system, assign the appropriate
-        //id as if it were being inserted from the Add analysis option. As in the Import analysis menu option, if a NIF does not exist in the database, the NIF of that
-        //patient will be written to a text file called wrong_patients.txt.
-        if (statisticsbool) {
+        string fileName = argv[fileIndex];
+        ifstream fr(fileName);
+        ofstream fw("wrong_patients.txt", ios::app);
+        string temp;
+
+        if (fr.is_open()) {
+            string line;
+            while(getline(fr,line)){
+                std::istringstream s(line);
+                std::getline(s, temp, ';');
+
+                int index = searchPatient(data, temp);
+
+                if (index == -1) {
+                    fw << line;
+                } else {
+                    Analysis newAnalysis{data.nextId++};
+
+                    std::strcpy(newAnalysis.nif, temp.c_str());
+
+                    std::getline(s, temp, '/');
+                    newAnalysis.dateAnalysis.day = stof(temp);
+
+                    std::getline(s, temp, '/');
+                    newAnalysis.dateAnalysis.month = stof(temp);
+
+                    std::getline(s, temp, ';');
+                    newAnalysis.dateAnalysis.year = stof(temp);
+
+                    std::getline(s, temp, ';');
+                    newAnalysis.weight = stof(temp);
+
+                    std::getline(s, temp, ';');
+                    newAnalysis.height = stof(temp);
+                }
+            }
+            fr.close();
+            fw.close();
+        }
+
+        if (statisticsBool) {
             statistics(data);
         }
+
     } else {
         error(ERR_ARGS);
     }
