@@ -203,24 +203,33 @@ void viewPatient(const Database& data) {
             return;
         }
         patientIndex = searchPatient(data, nif);
-        if (patientIndex == -1) {
-            error(ERR_PATIENT_NOT_EXISTS);
-        }
-    }
 
-    cout << "NIF: " << data.patients[patientIndex].nif << endl;
-    cout << "Name: " << data.patients[patientIndex].name << endl;
-    cout << "Telephone: " << data.patients[patientIndex].telephone << endl;
-    cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;
+        bool legitNIF = isValidNIF(nif);
 
-    for (size_t i = 0; i < data.analysis.size(); i++) {
-        if (data.analysis[i].nif == nif) {
-            cout << data.analysis[i].id << "\t"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.year << "\t"
-            << data.analysis[i].height << "\t"
-            << data.analysis[i].weight << endl;
+        if (legitNIF) {
+            int patientIndex = searchPatient(data, nif);
+
+            if (patientIndex == -1) {
+                error(ERR_PATIENT_NOT_EXISTS);
+            } else {
+                cout << "NIF: " << data.patients[patientIndex].nif << endl;
+                cout << "Name: " << data.patients[patientIndex].name << endl;
+                cout << "Telephone: " << data.patients[patientIndex].telephone << endl;
+                cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;
+
+                for (size_t i = 0; i < data.analysis.size(); i++) {
+                    if (data.analysis[i].nif == nif) {
+                        cout << data.analysis[i].id << "\t"
+                        << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
+                        << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
+                        << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.year << "\t"
+                        << data.analysis[i].height << "\t"
+                        << data.analysis[i].weight << endl;
+                    }
+                }
+            }
+        } else {
+            error(ERR_WRONG_NIF);
         }
     }
 }
@@ -260,7 +269,7 @@ void savePatients(const Database& data) {
     if (file.is_open()) {
         for (size_t i = 0; i < data.patients.size(); i++) {
             strncpy(binPatient.nif, data.patients[i].nif.c_str(), KMAXNIF);
-            strncpy(binPatient.name, data.patients[i].name.c_str(), KMAXNAME);
+            strncpy(binPatient.name, data.patients[i].name.c_str(), (KMAXNAME - 1)); //Looks like a mistake from professors side
             strncpy(binPatient.telephone, data.patients[i].telephone.c_str(),KMAXTELEPHONE);
 
             file.write((const char *)&binPatient, sizeof(binPatient));
