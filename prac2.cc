@@ -4,6 +4,7 @@
 #include <regex>
 #include <cstring>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -352,7 +353,7 @@ void addAnalysis(Database& data) {
     data.analysis.push_back(newAnalysis);
 }
 
-void exportAnalysis(Database data) {
+void exportAnalysis(Database & data) {
     ofstream file("analysis.bin", ios::binary);
 
     if (file.is_open()) {
@@ -435,15 +436,88 @@ void statistics(const Database& data) {
     }
     file.close();
 }
-/*
-Función principal: Tendrás que añadir más código tuyo
-return: 0
-*/
-int main(int argc, char *argv[]){
-    Database data;
-    data.nextId=1;
-    char option;
-    loadPatients(data);
+
+int arguments(int argc, char *argv[], bool &showStatistics, bool &fileProvided) {
+     int fileIndex = -1;
+
+     for (int i = 1; i < argc; i++) {
+         if (strcmp(argv[i], "-f") == 0 && !fileProvided) {
+             if (i + 1 < argc) {
+                 fileProvided = true;
+                 fileIndex = i + 1;
+                 i++;
+             }
+         } else if (strcmp(argv[i], "-s") == 0 && !showStatistics) {
+             showStatistics = true;
+         }
+     }
+
+     return fileIndex;
+ }
+
+ void loadFile(Database& data, const string& fileName) {
+     ifstream fr(fileName);
+     ofstream fw("wrong_patients.txt", ios::app);
+     string temp;
+
+     if (fr.is_open()) {
+         string line;
+         while(getline(fr,line)){
+             std::istringstream s(line);
+             std::getline(s, temp, ';');
+
+             int index = searchPatient(data, temp);
+
+             if (index == -1) {
+                 fw << line << endl;
+             } else {
+                 Analysis newAnalysis{data.nextId++};
+
+                 std::strcpy(newAnalysis.nif, temp.c_str());
+
+                 std::getline(s, temp, '/');
+                 newAnalysis.dateAnalysis.day = stoi(temp);
+
+                 std::getline(s, temp, '/');
+                 newAnalysis.dateAnalysis.month = stoi(temp);
+
+                 std::getline(s, temp, ';');
+                 newAnalysis.dateAnalysis.year = stoi(temp);
+
+                 std::getline(s, temp, ';');
+                 newAnalysis.weight = stof(temp);
+
+                 std::getline(s, temp, ';');
+                 newAnalysis.height = stof(temp);
+
+                 data.analysis.push_back(newAnalysis);
+             }
+         }
+         fr.close();
+         fw.close();
+     }
+ }
+
+ /*
+ Función principal: Tendrás que añadir más código tuyo
+ return: 0
+ */
+ int main(int argc, char *argv[]){
+     Database data;
+     data.nextId=1;
+     char option;
+
+     loadPatients(data);
+
+     bool fileProvided = false, showStatistics = false;
+     int fileIndex = arguments(argc, argv, showStatistics, fileProvided);
+
+     if (fileProvided) {
+         string fileName = argv[fileIndex];
+         loadFile(data, fileName);
+     } else {
+         error(ERR_ARGS);
+     }
 
     do{
         showMenu();
