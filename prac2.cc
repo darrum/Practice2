@@ -259,9 +259,9 @@ void savePatients(const Database& data) {
 
     if (file.is_open()) {
         for (size_t i = 0; i < data.patients.size(); i++) {
-            strcpy(binPatient.nif, data.patients[i].nif.c_str());
-            strcpy(binPatient.name, data.patients[i].name.c_str());
-            strcpy(binPatient.telephone, data.patients[i].telephone.c_str());
+            strncpy(binPatient.nif, data.patients[i].nif.c_str(), KMAXNIF);
+            strncpy(binPatient.name, data.patients[i].name.c_str(), KMAXNAME);
+            strncpy(binPatient.telephone, data.patients[i].telephone.c_str(),KMAXTELEPHONE);
 
             file.write((const char *)&binPatient, sizeof(binPatient));
         }
