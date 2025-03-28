@@ -283,14 +283,19 @@ void addAnalysis(Database& data) {
             return;
         }
 
-        int patientIndex = searchPatient(data, nif);
+        bool legitNIF = isValidNIF(nif);
 
-        if (patientIndex != -1) {
-            patientExists = true;
-            strcpy(newAnalysis.nif, nif.c_str());
+        if (legitNIF) {
+            int patientIndex = searchPatient(data, nif);
+
+            if (patientIndex != -1) {
+                patientExists = true;
+                strcpy(newAnalysis.nif, nif.c_str());
+            } else {
+                error(ERR_PATIENT_NOT_EXISTS);
+            }
         } else {
-            error(ERR_PATIENT_NOT_EXISTS);
-        }
+            error(ERR_WRONG_NIF);
     } while (!patientExists);
 
     do {
