@@ -366,6 +366,7 @@ void importAnalysis(Database& data) {
             << binAnalysis.height << ";"
             << binAnalysis.weight << endl;
         } else {
+            binAnalysis.id = data.nextId++;
             data.analysis.push_back(binAnalysis);
         }
     }
