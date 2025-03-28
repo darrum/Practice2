@@ -443,6 +443,49 @@ int arguments(int argc, char *argv[], bool &statistics, bool &fileProvided) {
     return fileIndex;
 }
 
+void loadFile(Database& data, const string& fileName) {
+    ifstream fr(fileName);
+    ofstream fw("wrong_patients.txt", ios::app);
+    string temp;
+
+    if (fr.is_open()) {
+        string line;
+        while(getline(fr,line)){
+            std::istringstream s(line);
+            std::getline(s, temp, ';');
+
+            int index = searchPatient(data, temp);
+
+            if (index == -1) {
+                fw << line;
+            } else {
+                Analysis newAnalysis{data.nextId++};
+
+                std::strcpy(newAnalysis.nif, temp.c_str());
+
+                std::getline(s, temp, '/');
+                newAnalysis.dateAnalysis.day = stoi(temp);
+
+                std::getline(s, temp, '/');
+                newAnalysis.dateAnalysis.month = stoi(temp);
+
+                std::getline(s, temp, ';');
+                newAnalysis.dateAnalysis.year = stoi(temp);
+
+                std::getline(s, temp, ';');
+                newAnalysis.weight = stof(temp);
+
+                std::getline(s, temp, ';');
+                newAnalysis.height = stof(temp);
+
+                data.analysis.push_back(newAnalysis);
+            }
+        }
+        fr.close();
+        fw.close();
+    }
+}
+
 /*
 Función principal: Tendrás que añadir más código tuyo
 return: 0
@@ -459,55 +502,10 @@ int main(int argc, char *argv[]){
 
     if (fileProvided) {
         string fileName = argv[fileIndex];
-        ifstream fr(fileName);
-        ofstream fw("wrong_patients.txt", ios::app);
-        string temp;
-
-        if (fr.is_open()) {
-            string line;
-            while(getline(fr,line)){
-                std::istringstream s(line);
-                std::getline(s, temp, ';');
-
-                int index = searchPatient(data, temp);
-
-                if (index == -1) {
-                    fw << line;
-                } else {
-                    Analysis newAnalysis{data.nextId++};
-
-                    std::strcpy(newAnalysis.nif, temp.c_str());
-
-                    std::getline(s, temp, '/');
-                    newAnalysis.dateAnalysis.day = stoi(temp);
-
-                    std::getline(s, temp, '/');
-                    newAnalysis.dateAnalysis.month = stoi(temp);
-
-                    std::getline(s, temp, ';');
-                    newAnalysis.dateAnalysis.year = stoi(temp);
-
-                    std::getline(s, temp, ';');
-                    newAnalysis.weight = stof(temp);
-
-                    std::getline(s, temp, ';');
-                    newAnalysis.height = stof(temp);
-
-                    data.analysis.push_back(newAnalysis);
-                }
-            }
-            fr.close();
-            fw.close();
-        }
-
-        if (statisticsBool) {
-            statistics(data);
-        }
-
+        loadFile(data, fileName);
     } else {
         error(ERR_ARGS);
     }
-
 
     do{
         showMenu();
