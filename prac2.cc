@@ -403,6 +403,14 @@ void statistics(const Database& data) {
     for (size_t i = 0; i < data.analysis.size();i++) {
         string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
 
+        cout << data.analysis[i].nif << ";"
+        << data.analysis[i].dateAnalysis.day << "/"
+        << data.analysis[i].dateAnalysis.month << "/"
+        << data.analysis[i].dateAnalysis.year << ";"
+        << data.analysis[i].weight << ";"
+        << data.analysis[i].height << ";"
+        << bmi << endl;
+
         file << data.analysis[i].nif << ";"
         << data.analysis[i].dateAnalysis.day << "/"
         << data.analysis[i].dateAnalysis.month << "/"
