@@ -333,7 +333,7 @@ void addAnalysis(Database& data) {
     data.analysis.push_back(newAnalysis);
 }
 
-void exportAnalysis(Database data) {
+void exportAnalysis(const Database data) {
     ofstream file("analysis.bin", ios::binary);
 
     if (file.is_open()) {
@@ -357,7 +357,7 @@ void importAnalysis(Database& data) {
     while (fr.read((char *)&binAnalysis, sizeof(Analysis))) {
         int patientIndex = searchPatient(data, binAnalysis.nif);
 
-        if (patientIndex == -1) { //not sure about format
+        if (patientIndex == -1) {
             fw << binAnalysis.id << ";"
             << binAnalysis.nif << ";"
             << binAnalysis.dateAnalysis.day << "/"
@@ -425,18 +425,18 @@ void statistics(const Database& data) {
     file.close();
 }
 
-int arguments(int argc, char *argv[], bool &statistics, bool &fileProvided) {
+int arguments(int argc, char *argv[], bool &showStatistics, bool &fileProvided) {
     int fileIndex = -1;
 
-    for (int i = 1; i < argc; i++) { // Start from 1 since argv[0] is program name
+    for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-f") == 0 && !fileProvided) {
-            if (i + 1 < argc) { // Ensure next argument exists
+            if (i + 1 < argc) {
                 fileProvided = true;
-                fileIndex = i + 1; // Save file index
-                i++; // Skip next argument (file name)
+                fileIndex = i + 1;
+                i++;
             }
-        } else if (strcmp(argv[i], "-s") == 0 && !statistics) {
-            statistics = true;
+        } else if (strcmp(argv[i], "-s") == 0 && !showStatistics) {
+            showStatistics = true;
         }
     }
 
@@ -457,7 +457,7 @@ void loadFile(Database& data, const string& fileName) {
             int index = searchPatient(data, temp);
 
             if (index == -1) {
-                fw << line;
+                fw << line << endl;
             } else {
                 Analysis newAnalysis{data.nextId++};
 
@@ -497,8 +497,8 @@ int main(int argc, char *argv[]){
 
     loadPatients(data);
 
-    bool fileProvided = false, statisticsBool = false;
-    int fileIndex = arguments(argc, argv, statisticsBool, fileProvided);
+    bool fileProvided = false, showStatistics = false;
+    int fileIndex = arguments(argc, argv, showStatistics, fileProvided);
 
     if (fileProvided) {
         string fileName = argv[fileIndex];
