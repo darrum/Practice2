@@ -115,7 +115,7 @@ int searchPatient(const Database& data, const string &nif) { //not finished
     for (size_t i = 0; i < data.patients.size() && !found; i++) {
         if (nif == data.patients[i].nif) {
             found = true;
-            patientIndex = i;
+            patientIndex = static_cast<int>(i);
         }
     }
     return patientIndex;
@@ -272,7 +272,7 @@ void savePatients(const Database& data) {
 
 void addAnalysis(Database& data) {
     Analysis newAnalysis{data.nextId++};
-    Date date;
+    Date date{};
     string nif;
     float weight, height;
     bool patientExists = false, validDate, validWeight = false, validHeight = false;
@@ -373,8 +373,8 @@ void importAnalysis(Database& data) {
 
 void loadPatients(Database & data) {
     ifstream fr("patients.bin", ios::binary);
-    PatientBin binP;
-    Patient strP;
+    PatientBin binP{};
+    Patient strP{};
 
     if (fr.is_open()) {
         while (fr.read((char *)&binP, sizeof(PatientBin))) {
@@ -479,13 +479,13 @@ int main(int argc, char *argv[]){
                     std::strcpy(newAnalysis.nif, temp.c_str());
 
                     std::getline(s, temp, '/');
-                    newAnalysis.dateAnalysis.day = stof(temp);
+                    newAnalysis.dateAnalysis.day = stoi(temp);
 
                     std::getline(s, temp, '/');
-                    newAnalysis.dateAnalysis.month = stof(temp);
+                    newAnalysis.dateAnalysis.month = stoi(temp);
 
                     std::getline(s, temp, ';');
-                    newAnalysis.dateAnalysis.year = stof(temp);
+                    newAnalysis.dateAnalysis.year = stoi(temp);
 
                     std::getline(s, temp, ';');
                     newAnalysis.weight = stof(temp);
