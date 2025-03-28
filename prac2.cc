@@ -215,10 +215,15 @@ void viewPatient(const Database& data) {
                 cout << "NIF: " << data.patients[patientIndex].nif << endl;
                 cout << "Name: " << data.patients[patientIndex].name << endl;
                 cout << "Telephone: " << data.patients[patientIndex].telephone << endl;
-                cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;
+
+                bool displayed = false;
 
                 for (size_t i = 0; i < data.analysis.size(); i++) {
                     if (data.analysis[i].nif == nif) {
+                        if (!displayed) {
+                            cout << "Id \t" << "Date \t" << "Height \t" << "Weight \t" << endl;
+                            displayed = true;
+                        }
                         cout << data.analysis[i].id << "\t"
                         << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
                         << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
