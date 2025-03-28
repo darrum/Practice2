@@ -4,7 +4,6 @@
 #include <regex>
 #include <cstring>
 #include <iomanip>
-#include <sstream>
 
 using namespace std;
 
@@ -115,7 +114,7 @@ int searchPatient(const Database& data, const string &nif) { //not finished
     for (size_t i = 0; i < data.patients.size() && !found; i++) {
         if (nif == data.patients[i].nif) {
             found = true;
-            patientIndex = static_cast<int>(i);
+            patientIndex = i;
         }
     }
     return patientIndex;
@@ -272,7 +271,7 @@ void savePatients(const Database& data) {
 
 void addAnalysis(Database& data) {
     Analysis newAnalysis{data.nextId++};
-    Date date{};
+    Date date;
     string nif;
     float weight, height;
     bool patientExists = false, validDate, validWeight = false, validHeight = false;
@@ -333,7 +332,7 @@ void addAnalysis(Database& data) {
     data.analysis.push_back(newAnalysis);
 }
 
-void exportAnalysis(const Database &data) {
+void exportAnalysis(Database data) {
     ofstream file("analysis.bin", ios::binary);
 
     if (file.is_open()) {
@@ -357,7 +356,7 @@ void importAnalysis(Database& data) {
     while (fr.read((char *)&binAnalysis, sizeof(Analysis))) {
         int patientIndex = searchPatient(data, binAnalysis.nif);
 
-        if (patientIndex == -1) {
+        if (patientIndex == -1) { //not sure about format
             fw << binAnalysis.id << ";"
             << binAnalysis.nif << ";"
             << binAnalysis.dateAnalysis.day << "/"
@@ -373,8 +372,8 @@ void importAnalysis(Database& data) {
 
 void loadPatients(Database & data) {
     ifstream fr("patients.bin", ios::binary);
-    PatientBin binP{};
-    Patient strP{};
+    PatientBin binP;
+    Patient strP;
 
     if (fr.is_open()) {
         while (fr.read((char *)&binP, sizeof(PatientBin))) {
@@ -400,92 +399,19 @@ string bmiCalculator(const float& weight, const float& height) {
 
 void statistics(const Database& data) {
     ofstream file("statistics.txt");
+    for (size_t i = 0; i < data.analysis.size();i++) {
+        string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
 
-    if (file.is_open()) {
-        for (size_t i = 0; i < data.analysis.size();i++) {
-            string bmi = bmiCalculator(data.analysis[i].weight, data.analysis[i].height);
-
-            cout << data.analysis[i].nif << ";"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.year << ";"
-            << data.analysis[i].weight << ";"
-            << data.analysis[i].height << ";"
-            << bmi << endl;
-
-            file << data.analysis[i].nif << ";"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.day << "/"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.month << "/"
-            << setw(2) << setfill('0') << data.analysis[i].dateAnalysis.year << ";"
-            << data.analysis[i].weight << ";"
-            << data.analysis[i].height << ";"
-            << bmi << endl;
-        }
+        file << data.analysis[i].nif << ";"
+        << data.analysis[i].dateAnalysis.day << "/"
+        << data.analysis[i].dateAnalysis.month << "/"
+        << data.analysis[i].dateAnalysis.year << ";"
+        << data.analysis[i].weight << ";"
+        << data.analysis[i].height << ";"
+        << bmi << endl;
     }
     file.close();
 }
-
-int arguments(int argc, char *argv[], bool &showStatistics, bool &fileProvided) {
-    int fileIndex = -1;
-
-    for (int i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "-f") == 0 && !fileProvided) {
-            if (i + 1 < argc) {
-                fileProvided = true;
-                fileIndex = i + 1;
-                i++;
-            }
-        } else if (strcmp(argv[i], "-s") == 0 && !showStatistics) {
-            showStatistics = true;
-        }
-    }
-
-    return fileIndex;
-}
-
-void loadFile(Database& data, const string& fileName) {
-    ifstream fr(fileName);
-    ofstream fw("wrong_patients.txt", ios::app);
-    string temp;
-
-    if (fr.is_open()) {
-        string line;
-        while(getline(fr,line)){
-            std::istringstream s(line);
-            std::getline(s, temp, ';');
-
-            int index = searchPatient(data, temp);
-
-            if (index == -1) {
-                fw << line << endl;
-            } else {
-                Analysis newAnalysis{data.nextId++};
-
-                std::strcpy(newAnalysis.nif, temp.c_str());
-
-                std::getline(s, temp, '/');
-                newAnalysis.dateAnalysis.day = stoi(temp);
-
-                std::getline(s, temp, '/');
-                newAnalysis.dateAnalysis.month = stoi(temp);
-
-                std::getline(s, temp, ';');
-                newAnalysis.dateAnalysis.year = stoi(temp);
-
-                std::getline(s, temp, ';');
-                newAnalysis.weight = stof(temp);
-
-                std::getline(s, temp, ';');
-                newAnalysis.height = stof(temp);
-
-                data.analysis.push_back(newAnalysis);
-            }
-        }
-        fr.close();
-        fw.close();
-    }
-}
-
 /*
 Función principal: Tendrás que añadir más código tuyo
 return: 0
@@ -494,18 +420,7 @@ int main(int argc, char *argv[]){
     Database data;
     data.nextId=1;
     char option;
-
     loadPatients(data);
-
-    bool fileProvided = false, showStatistics = false;
-    int fileIndex = arguments(argc, argv, showStatistics, fileProvided);
-
-    if (fileProvided) {
-        string fileName = argv[fileIndex];
-        loadFile(data, fileName);
-    } else {
-        error(ERR_ARGS);
-    }
 
     do{
         showMenu();
