@@ -440,26 +440,26 @@ void statistics(const Database& data) {
 bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
     bool fileProvided = false;
 
-    for (int i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "-f") == 0) {
-            if (i + 1 < argc) {
-                fileName = argv[i + 1];
-                fileProvided = true;
-                i++;
-            } else {
-                return false; // Missing file name
-            }
-        } else if (strcmp(argv[i], "-s") == 0) {
-            showStatistics = true;
-        }
-    }
+     for (int i = 1; i < argc; i++) {
+         if (strcmp(argv[i], "-f") == 0) {
+             if (i + 1 < argc) {
+                 fileName = argv[i + 1];
+                 fileProvided = true;
+                 i++;
+             } else {
+                 return false; // Missing file name
+             }
+         } else if (strcmp(argv[i], "-s") == 0) {
+             showStatistics = true;
+         }
+     }
 
     if (showStatistics && !fileProvided) {
         return false;
     }
 
     return true;
-}
+ }
 
  void loadFile(Database& data, const string& fileName) {
      ifstream fr(fileName);
@@ -509,26 +509,24 @@ bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
  return: 0
  */
  int main(int argc, char *argv[]){
-    int main(int argc, char *argv[]) {
-        Database data;
-        data.nextId=1;
-        char option;
-        string fileName;
+     Database data;
+     data.nextId=1;
+     char option;
+     string fileName;
 
-        loadPatients(data);
+     loadPatients(data);
 
-        bool fileProvided = false, showStatistics = false;
-        if (!arguments(argc, argv, showStatistics, fileName)) {
-            error(ERR_ARGS);
-            return 0;
-        }
+     bool fileProvided = false, showStatistics = false;
+     if (!arguments(argc, argv, showStatistics, fileName)) {
+         error(ERR_ARGS);
+         return 0;
+     }
 
-        if (!fileName.empty()) {
-            loadFile(data, fileName);
+    if (!fileName.empty()) {
+        loadFile(data, fileName);
 
-            if (showStatistics) {
-                statistics(data);
-            }
+        if (showStatistics) {
+            statistics(data);
         }
     }
 
