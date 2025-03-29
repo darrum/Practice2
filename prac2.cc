@@ -516,7 +516,7 @@ bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
 
      loadPatients(data);
 
-     bool fileProvided = false, showStatistics = false;
+     bool showStatistics = false;
      if (!arguments(argc, argv, showStatistics, fileName)) {
          error(ERR_ARGS);
          return 0;
