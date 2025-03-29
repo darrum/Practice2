@@ -439,17 +439,21 @@ void statistics(const Database& data) {
 
 bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
     bool fileProvided = false;
+    showStatistics = false;
+    fileName = "";
 
      for (int i = 1; i < argc; i++) {
          if (strcmp(argv[i], "-f") == 0) {
-             if (i + 1 < argc) {
-                 fileName = argv[i + 1];
-                 fileProvided = true;
-                 i++;
-             } else {
-                 return false; // Missing file name
+             if (i + 1 >= argc || !fileName.empty()) {
+                 return false; // Missing file name or file name already provided
              }
+             fileName = argv[i + 1];
+             fileProvided = true;
+             i++;
          } else if (strcmp(argv[i], "-s") == 0) {
+             if (showStatistics) {
+                 return false; // -s option already provided
+             }
              showStatistics = true;
          }
      }
@@ -461,47 +465,51 @@ bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
     return true;
  }
 
- void loadFile(Database& data, const string& fileName) {
+ bool loadFile(Database& data, const string& fileName) {
      ifstream fr(fileName);
      ofstream fw("wrong_patients.txt", ios::app);
      string temp;
 
-     if (fr.is_open()) {
-         string line;
-         while(getline(fr,line)){
-             std::istringstream s(line);
+    if (!fr.is_open() || !fw.is_open()) {
+        return false;
+    }
+
+     string line;
+     while(getline(fr,line)){
+         std::istringstream s(line);
+         std::getline(s, temp, ';');
+
+         int index = searchPatient(data, temp);
+
+         if (index == -1) {
+             fw << line << endl;
+         } else {
+             Analysis newAnalysis{data.nextId++};
+
+             std::strcpy(newAnalysis.nif, temp.c_str());
+
+             std::getline(s, temp, '/');
+             newAnalysis.dateAnalysis.day = stoi(temp);
+
+             std::getline(s, temp, '/');
+             newAnalysis.dateAnalysis.month = stoi(temp);
+
              std::getline(s, temp, ';');
+             newAnalysis.dateAnalysis.year = stoi(temp);
 
-             int index = searchPatient(data, temp);
+             std::getline(s, temp, ';');
+             newAnalysis.weight = stof(temp);
 
-             if (index == -1) {
-                 fw << line << endl;
-             } else {
-                 Analysis newAnalysis{data.nextId++};
+             std::getline(s, temp, ';');
+             newAnalysis.height = stof(temp);
 
-                 std::strcpy(newAnalysis.nif, temp.c_str());
-
-                 std::getline(s, temp, '/');
-                 newAnalysis.dateAnalysis.day = stoi(temp);
-
-                 std::getline(s, temp, '/');
-                 newAnalysis.dateAnalysis.month = stoi(temp);
-
-                 std::getline(s, temp, ';');
-                 newAnalysis.dateAnalysis.year = stoi(temp);
-
-                 std::getline(s, temp, ';');
-                 newAnalysis.weight = stof(temp);
-
-                 std::getline(s, temp, ';');
-                 newAnalysis.height = stof(temp);
-
-                 data.analysis.push_back(newAnalysis);
-             }
+             data.analysis.push_back(newAnalysis);
          }
-         fr.close();
-         fw.close();
      }
+     fr.close();
+     fw.close();
+
+     return true;
  }
 
  /*
@@ -523,7 +531,10 @@ bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
      }
 
     if (!fileName.empty()) {
-        loadFile(data, fileName);
+        if (!loadFile(data, fileName)) {
+            error(ERR_FILE);
+            return 0;
+        }
 
         if (showStatistics) {
             statistics(data);
