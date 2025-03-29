@@ -437,23 +437,29 @@ void statistics(const Database& data) {
     file.close();
 }
 
-int arguments(int argc, char *argv[], bool &showStatistics, bool &fileProvided) {
-     int fileIndex = -1;
+bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
+    bool fileProvided = false;
 
-     for (int i = 1; i < argc; i++) {
-         if (strcmp(argv[i], "-f") == 0 && !fileProvided) {
-             if (i + 1 < argc) {
-                 fileProvided = true;
-                 fileIndex = i + 1;
-                 i++;
-             }
-         } else if (strcmp(argv[i], "-s") == 0 && !showStatistics) {
-             showStatistics = true;
-         }
-     }
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "-f") == 0) {
+            if (i + 1 < argc) {
+                fileName = argv[i + 1];
+                fileProvided = true;
+                i++;
+            } else {
+                return false; // Missing file name
+            }
+        } else if (strcmp(argv[i], "-s") == 0) {
+            showStatistics = true;
+        }
+    }
 
-     return fileIndex;
- }
+    if (showStatistics && !fileProvided) {
+        return false;
+    }
+
+    return true;
+}
 
  void loadFile(Database& data, const string& fileName) {
      ifstream fr(fileName);
@@ -503,21 +509,28 @@ int arguments(int argc, char *argv[], bool &showStatistics, bool &fileProvided) 
  return: 0
  */
  int main(int argc, char *argv[]){
-     Database data;
-     data.nextId=1;
-     char option;
+    int main(int argc, char *argv[]){
+        Database data;
+        data.nextId=1;
+        char option;
+        string fileName;
 
-     loadPatients(data);
+        loadPatients(data);
 
-     bool fileProvided = false, showStatistics = false;
-     int fileIndex = arguments(argc, argv, showStatistics, fileProvided);
+        bool fileProvided = false, showStatistics = false;
+        if (!arguments(argc, argv, showStatistics, fileName)) {
+            error(ERR_ARGS);
+            return 0;
+        }
 
-     if (fileProvided) {
-         string fileName = argv[fileIndex];
-         loadFile(data, fileName);
-     } else {
-         error(ERR_ARGS);
-     }
+        if (!fileName.empty()) {
+            loadFile(data, fileName);
+
+            if (showStatistics) {
+                statistics(data);
+            }
+        }
+
 
     do{
         showMenu();
