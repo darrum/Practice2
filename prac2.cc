@@ -509,7 +509,7 @@ bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
  return: 0
  */
  int main(int argc, char *argv[]){
-    int main(int argc, char *argv[]){
+    int main(int argc, char *argv[]) {
         Database data;
         data.nextId=1;
         char option;
@@ -530,7 +530,7 @@ bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
                 statistics(data);
             }
         }
-
+    }
 
     do{
         showMenu();
