@@ -530,16 +530,22 @@ bool arguments(int argc, char *argv[], bool &showStatistics, string &fileName) {
          return 0;
      }
 
+    bool fileLoaded = false;
     if (!fileName.empty()) {
-        if (!loadFile(data, fileName)) {
+        if (loadFile(data, fileName)) {
+            fileLoaded = true;
+        } else {
             error(ERR_FILE);
-            return 0;
-        }
-
-        if (showStatistics) {
-            statistics(data);
         }
     }
+
+    if (showStatistics) {
+        if (fileLoaded) {
+            statistics(data);
+        }
+        return 0; // Exit if -s option is provided
+    }
+
 
     do{
         showMenu();
